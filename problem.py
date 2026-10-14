@@ -64,6 +64,10 @@ class Problem:
             self._adj.setdefault(a, []).append((b, cost))
         for n in self._adj:
             self._adj[n].sort(key=lambda pair: pair[0])
+        # longest edge by straight-line LENGTH between its two dots (not its cost)
+        self._max_edge_len = max(
+            (math.hypot(nodes[a][0] - nodes[b][0], nodes[a][1] - nodes[b][1])
+             for a, b in edges if a in nodes and b in nodes), default=0)
 
     # ---- helpers for the algorithms -------------------------------------
     def root(self):
@@ -85,6 +89,14 @@ class Problem:
         x, y = self.nodes[state]
         return min(math.hypot(x - self.nodes[d][0], y - self.nodes[d][1])
                    for d in self.destinations)
+
+    def h_moves(self, state):
+        """Heuristic for the FEWEST MOVES (every move counts as 1), for CUS2.
+        One move can cover at most 'longest edge' of distance, so
+        ceil(h / longest_edge) never overestimates the number of moves."""
+        if self._max_edge_len == 0:
+            return 0
+        return math.ceil(self.h(state) / self._max_edge_len - 1e-9)
 
     def path_cost(self, path):
         """Total edge cost of a path given as a list of node numbers."""
