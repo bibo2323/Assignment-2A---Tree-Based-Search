@@ -1,10 +1,19 @@
-"""CUS1 (uninformed) and CUS2 (informed, fewest moves). Owner: Siu Han
-
-Ideas: CUS1 = Iterative Deepening DFS or Uniform Cost Search.
-       CUS2 = A* where every move costs 1, or IDA*.
-Confirm the choices with the lecturer on Wednesday.
 """
-#priority queue
+Custom Search Algorithms
+Owner: Siu Han
+
+CUS1: Uniform Cost Search (UCS) - uninformed search,
+prioritising the lowest accumulated edge cost.
+
+CUS2: Iterative Deepening A* (IDA*) - informed search,
+finding a path with the fewest moves using h_moves().
+
+Both methods count every child created by expand(),
+including children skipped by the cycle check.
+
+IDA* also counts nodes re-created in every iteration.
+"""
+
 import heapq
 import math
 
@@ -39,6 +48,8 @@ def cus1(problem):
 
         # 6. Generate children
         children = problem.expand(node)
+
+        # Count every generated child, including skipped ones
         created += len(children)
 
         # 7. Add valid children to the priority queue
@@ -84,22 +95,23 @@ def cus2(problem):
         # Check whether the current node is a destination
         if problem.is_goal(node.state):
             return node, math.inf
+        
+        # Generate all children
+        all_children = problem.expand(node)
 
-        # Generate children and count every created node
-        children = problem.expand(node)
-        created += len(children)
+        # Count every child, including those skipped by cycle check
+        created += len(all_children)
 
-        # Visit lower-numbered nodes first
-        children.sort(key=lambda child: child.state)
+        # Keep only children that are not on the current path
+        children = [
+            child for child in all_children
+            if not node.on_path(child.state)
+        ]
 
         # Track the smallest f that exceeds the threshold
         minimum_exceeded = math.inf
 
         for child in children:
-
-            # Avoid cycles within the current path
-            if node.on_path(child.state):
-                continue
 
             # Continue depth-first search
             goal, next_threshold = search(child, threshold)
