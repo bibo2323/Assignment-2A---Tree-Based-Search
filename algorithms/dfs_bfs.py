@@ -1,6 +1,6 @@
 """DFS and BFS (uninformed). Owner: Shirleen Teo Shu Enn
 
-bfs() below is a WORKING EXAMPLE showing the pattern. Copy its style for dfs().
+BFS and DFS (uninformed search)
 Tie-breaking: problem.expand() already returns children in ascending node order.
 BFS = queue (first in, first out).  DFS = stack (last in, first out), so for DFS
 you must push children in REVERSE order to expand the smallest node first.
