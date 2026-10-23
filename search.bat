@@ -1,2 +1,1 @@
-@echo off
-python "%~dp0search.py" %*
+@python "%~dp0search.py" %*

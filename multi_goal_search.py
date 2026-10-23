@@ -1,5 +1,5 @@
 """
- visit ALL destinations at the lowest cost.
+Multi-goal Route Finding (Research): find the lowest-cost route that visits ALL destinations.
 
 Imports Problem from problem.py and reads the same map files.
 
