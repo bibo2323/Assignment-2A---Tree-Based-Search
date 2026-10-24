@@ -1,11 +1,13 @@
 """
+Owner: Siti Nur Fatimah
+
 problem.py - Route Finding problem: file parser, graph, and search-tree node.
 
 Everyone's algorithms use these two classes:
     Problem     - the map (nodes, directed edges, origin, destinations)
     SearchNode  - one node in the SEARCH TREE (not the same as a map node)
 
-Input file format (see assignment sheet):
+Input file format:
     Nodes:
     1: (4,1)
     Edges:

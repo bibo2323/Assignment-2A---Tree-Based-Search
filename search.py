@@ -1,4 +1,6 @@
 """
+Owner: Siti Nur Fatimah
+
 COS30019 Assignment 2A - Route Finding (tree-based search)
 
 Usage:   python search.py <filename> <method>

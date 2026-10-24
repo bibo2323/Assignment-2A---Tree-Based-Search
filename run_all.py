@@ -1,4 +1,6 @@
 """
+Owner: Siti Nur Fatimah
+
 Batch tester - runs EVERY method on EVERY test file and saves a results table.
 Use it for the Testing and Insights sections of the report.
 
